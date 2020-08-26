@@ -19,7 +19,7 @@ app.use(
   }),
 );
 
-app.use([
+app.get([
   '/static/*.woff',
   '/static/*.woff2',
   '/static/*.png',
