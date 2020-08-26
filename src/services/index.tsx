@@ -10,6 +10,9 @@ type Props = {
 };
 
 const Services = ({ children }: Props) => {
+  const baseUrl = process.env.NODE_ENV === 'development'
+    ? 'http://localhost:4000/api/'
+    : 'https://cmrp-api-rest.herokuapp.com/api/';
   const UIContext = React.useContext(ContextUI);
 
   const handleError = (value: string, error: boolean) => (
@@ -21,7 +24,7 @@ const Services = ({ children }: Props) => {
       onRequestStart={() => UIContext.handleLoading(true)}
       onResponseEnd={() => UIContext.handleLoading(false)}
       onError={handleError}
-      baseUrl="/api/"
+      baseUrl={baseUrl}
     >
       <UserServiceProvider
         onFailAuth={(reason: string) => UIContext.handleAlert(reason, true)}

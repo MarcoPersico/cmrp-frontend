@@ -6,6 +6,8 @@ const htmlPlugin = new HtmlWebPackPlugin({
   template: './src/index.html',
 });
 
+const envPlugin = new webpack.EnvironmentPlugin({ NODE_ENV: 'development' });
+
 const config: webpack.Configuration = {
   mode: 'development',
   entry: './src/index.tsx',
@@ -23,7 +25,7 @@ const config: webpack.Configuration = {
       },
     ],
   },
-  plugins: [htmlPlugin],
+  plugins: [htmlPlugin, envPlugin],
   output: {
     filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist'),

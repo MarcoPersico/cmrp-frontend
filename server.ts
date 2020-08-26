@@ -1,29 +1,13 @@
-import express, { Request, Response } from 'express';
-// eslint-disable-next-line @typescript-eslint/camelcase
+import express, { Request, Response, NextFunction } from 'express';
 import bodyParser from 'body-parser';
 import path from 'path';
 import compression from 'compression';
 import history from 'connect-history-api-fallback';
 import expressStaticGzip from 'express-static-gzip';
-import webpack from 'webpack';
-import webpackDevMiddleware from 'webpack-dev-middleware';
-import config from './webpack.dev';
-
-declare global {
-  namespace NodeJS {
-    interface ProcessEnv {
-      SECRET_KEY: string;
-      NODE_ENV: 'development' | 'production';
-      PORT?: string;
-    }
-  }
-}
-process.env.SECRET_KEY = '!16196429$38644923!';
 
 const app = express();
-const port = process.env.PORT || 9010;
-const clientPath = path.join(__dirname, '..', 'dist');
-const compiler = webpack(config);
+const port = 9010;
+const clientPath = path.join(__dirname, 'dist');
 
 app.use(history());
 app.use(bodyParser.json());
@@ -35,23 +19,28 @@ app.use(
   }),
 );
 
-// App Startup
+app.use([
+  '/static/*.woff',
+  '/static/*.woff2',
+  '/static/*.png',
+  '/favicon.ico',
+], (req: Request, res: Response, next: NextFunction) => {
+  res.header(
+    'Access-Control-Allow-Headers',
+    'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method',
+  );
+  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+  res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
+  res.header('Cache-Control', 'public, max-age=31536000, immutable');
+  next();
+});
+
 app.get('/favicon.ico', (req, res) => {
-  let icon;
-  if (port === 9010) {
-    icon = path.join(__dirname, '..', 'client', 'favicon.ico');
-  } else {
-    icon = path.join(clientPath);
-  }
+  const icon = path.join(clientPath);
   res.sendFile(icon);
 });
-if (port === 9010) {
-  app.use(webpackDevMiddleware(compiler, {
-    publicPath: config.output?.publicPath || '/',
-  }));
-} else {
-  app.use(express.static(clientPath));
-  app.get('*', (req: Request, res: Response) => res.sendFile(path.join(clientPath, 'index.html')));
-}
+
+app.use(express.static(clientPath));
+app.get('*', (req: Request, res: Response) => res.sendFile(path.join(clientPath, 'index.html')));
 
 app.listen(port, () => `Wokring on ${port}`);

@@ -8,6 +8,8 @@ const htmlPlugin: HtmlWebPackPlugin = new HtmlWebPackPlugin({
   favicon: './favicon.ico',
 });
 
+const envPlugin = new webpack.EnvironmentPlugin({ NODE_ENV: 'production' });
+
 const config: webpack.Configuration = {
   mode: 'production',
   entry: './src/index.tsx',
@@ -19,7 +21,6 @@ const config: webpack.Configuration = {
     // Add '.ts' and '.tsx' as resolvable extensions.
     extensions: ['.ts', '.tsx', '.js', '.json'],
   },
-
   module: {
     rules: [
       // All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'.
@@ -27,10 +28,14 @@ const config: webpack.Configuration = {
       {
         test: /\.(eot|svg|ttf|woff|woff2|otf|png|ico)$/,
         loader: 'file-loader',
+        options: {
+          name: '[name].[ext]',
+          outputPath: 'static/',
+        },
       },
     ],
   },
-  plugins: [htmlPlugin],
+  plugins: [htmlPlugin, envPlugin],
 };
 
 export default config;
