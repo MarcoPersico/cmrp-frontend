@@ -1,4 +1,4 @@
-import express, { Request, Response, NextFunction } from 'express';
+import express, { Request, Response } from 'express';
 import bodyParser from 'body-parser';
 import path from 'path';
 import compression from 'compression';
@@ -24,15 +24,8 @@ app.get([
   '/static/*.woff2',
   '/static/*.png',
   '/favicon.ico',
-], (req: Request, res: Response, next: NextFunction) => {
-  res.header(
-    'Access-Control-Allow-Headers',
-    'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method',
-  );
-  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
-  res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
+], (req: Request, res: Response) => {
   res.header('Cache-Control', 'public, max-age=31536000, immutable');
-  next();
 });
 
 app.get('/favicon.ico', (req, res) => {
