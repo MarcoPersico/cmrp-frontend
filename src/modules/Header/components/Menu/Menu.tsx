@@ -39,7 +39,7 @@ const Menu = ({
           <div className="CMRP_Menu_body_hr" />
           <Link
             onClick={onNavigateAction}
-            to="/dashboard/search"
+            to="/dashboard/affiliate-search"
           >
             <Icon.Search />
             <p>consultar afiliado</p>
@@ -51,6 +51,13 @@ const Menu = ({
             <Icon.AddUser />
             <p>agregar afiliado</p>
           </Link>
+          {/* <Link
+            onClick={onNavigateAction}
+            to="/dashboard/affiliate-census"
+          >
+            <Icon.UserGroup />
+            <p>padron de afiliados</p>
+          </Link> */}
           <Link
             onClick={onNavigateAction}
             to="/dashboard/pay-registry/results"

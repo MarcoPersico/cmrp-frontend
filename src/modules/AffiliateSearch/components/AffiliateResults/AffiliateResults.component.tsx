@@ -15,7 +15,7 @@ const AffiliateResults = ({ results }: Props) => (
         type="button"
         key={result.affiliate}
         className="CMRP_results_card"
-        to={`/dashboard/search/selected/${result.affiliate}`}
+        to={`/dashboard/affiliate-search/selected/${result.affiliate}`}
       >
         {result.name}
       </Link>

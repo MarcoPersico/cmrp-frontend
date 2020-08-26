@@ -10,13 +10,13 @@ export default function AffiliateSearchRoutes() {
 
   return (
     <Switch>
-      <Route path="/dashboard/search/results">
+      <Route path="/dashboard/affiliate-search/results">
         <AffiliateResults results={affiliateService.results} />
       </Route>
-      <Route path="/dashboard/search/selected/:id">
+      <Route path="/dashboard/affiliate-search/selected/:id">
         <AffiliateProfileContainer />
       </Route>
-      <Route path="/dashboard/search/not-found">
+      <Route path="/dashboard/affiliate-search/not-found">
         <div className="CMRP_AffiliateSearch_notFound">
           <Raccoon404 />
           <p>No se encontraron resultados</p>

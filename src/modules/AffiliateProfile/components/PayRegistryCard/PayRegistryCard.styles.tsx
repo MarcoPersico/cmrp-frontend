@@ -1,7 +1,11 @@
 import styled from 'styled-components';
 
 export const PayRegistryCardStyles = styled.div`
+  transition: all 200ms;
+  a { text-decoration: none; color: unset }
+
   .CMRP_PayRegistry {
+
     &_cardContainer {
       grid-template-columns: repeat(auto-fill,minmax(310px,1fr));
       padding: 1rem 1rem 0.25rem;
@@ -22,5 +26,9 @@ export const PayRegistryCardStyles = styled.div`
       }
 
     }
+  }
+
+  &:hover {
+    transform: scale(1.01);
   }
 `;

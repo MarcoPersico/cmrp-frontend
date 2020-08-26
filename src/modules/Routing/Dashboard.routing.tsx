@@ -28,9 +28,14 @@ const Routing = () => {
             ? <NewAffiliateModule />
             : <Redirect to="/" />}
         </Route>
-        <Route path="/dashboard/search">
+        <Route path="/dashboard/affiliate-search">
           {isAuth
             ? <AffiliateSearchModule />
+            : <Redirect to="/" />}
+        </Route>
+        <Route path="/dashboard/affiliate-census">
+          {isAuth
+            ? <div>Census</div>
             : <Redirect to="/" />}
         </Route>
         <Route path="/dashboard/pay-registry">

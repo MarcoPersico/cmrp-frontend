@@ -57,6 +57,7 @@ export type PayRegistry = {
   import: number,
   code: number,
   period: string,
+  periodCode: number,
 };
 
 export type AffiliateData = {
@@ -214,9 +215,9 @@ const AffiliateServiceProvider = ({ children }: Props) => {
       AffiliatesSearch()
         .then((resultsInstace: AffiliateSimple[]) => {
           setResults(resultsInstace);
-          if (resultsInstace.length === 1) history.push(`/dashboard/search/selected/${resultsInstace[0].affiliate}`);
-          if (resultsInstace.length > 1) history.push(`/dashboard/search/results?query=${query}`);
-          if (!resultsInstace.length) history.push(`/dashboard/search/not-found?query=${query}`);
+          if (resultsInstace.length === 1) history.push(`/dashboard/affiliate-search/selected/${resultsInstace[0].affiliate}`);
+          if (resultsInstace.length > 1) history.push(`/dashboard/affiliate-search/results?query=${query}`);
+          if (!resultsInstace.length) history.push(`/dashboard/affiliate-search/not-found?query=${query}`);
         });
     }
   }, [history, httpService, query]);
@@ -390,7 +391,7 @@ const AffiliateServiceProvider = ({ children }: Props) => {
     };
 
     const response = await httpService.ApiService(affiliateConfig);
-    return history.push(`/dashboard/search/selected/${response.data.code}`);
+    return history.push(`/dashboard/affiliate-search/selected/${response.data.code}`);
   }
 
   return (

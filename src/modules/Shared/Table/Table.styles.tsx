@@ -11,6 +11,35 @@ export const TableStyles = styled.div`
     width: 100%;
     border-collapse: collapse;
 
+    @media print {
+      table thead tr th {
+        font-family: sans-serif;
+        background: white;
+        color: black;
+
+        &:before, &:after {
+          font-family: sans-serif;
+          background: white;
+          color: black;
+        }
+
+        button { 
+          font-family: sans-serif;
+          background: white;
+          color: black;
+        }
+      }
+  
+      tr td {
+        font-family: sans-serif;
+        background: white;
+        color: black;
+
+        span { font-family: sans-serif; }
+        a { color: black }
+      }
+    }
+
     thead {
       tr {
         th {

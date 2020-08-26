@@ -41,7 +41,7 @@ const PayRegistrySelectedContainer = () => {
   const filterByLaw = (value: string, data?: PayRegistryAttributes[]) => {
     if (value === 'Seleccione numero de ley') {
       setIsFilterApplied(false);
-      setFilterPayRegistry(payRegistry);
+      setFilterPayRegistry(data || payRegistry);
     } else {
       setSelectedLaw(parseInt(value, 10));
       let filteredRegistries: PayRegistryAttributes[];

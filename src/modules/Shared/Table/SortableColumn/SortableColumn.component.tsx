@@ -16,6 +16,9 @@ const SortableColumn = ({
 
   const renderIcon = () => {
     switch (sort) {
+      case null: {
+        return null;
+      }
       case 'ASC': {
         return <span className="CMRP_Table_sortable_arrow" role="img" aria-label="unicode">🠗</span>;
       }

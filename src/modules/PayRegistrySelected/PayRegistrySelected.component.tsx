@@ -83,7 +83,7 @@ const PayRegistrySelected = ({
                 </td>
                 <td>{col.number}</td>
                 <td>
-                  <Link to={`/dashboard/search/selected/${col.identity}`}>
+                  <Link to={`/dashboard/affiliate-search/selected/${col.identity}`}>
                     {col.name}
                   </Link>
                 </td>

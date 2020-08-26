@@ -44,12 +44,15 @@ export const MenuStyles = styled.div`
       }
       
       h1 {
-        font-size: 1.75rem;
         color: white;
         display: inline-flex;
         align-items: flex-end;
         letter-spacing: 2px;
+        font-size: 1.5rem;
       }
+
+      p { font-size: 1.5rem }
+      label { font-size: 1.25rem }
 
       &_hr {
         height: 6px;
@@ -65,7 +68,9 @@ export const MenuStyles = styled.div`
       gap: ${(props) => props.theme.spacing.bigSpacing};
 
       @media screen and (${(props) => props.theme.breakPoint.extraLargeScreen}) {
-        gap: 1.5rem;
+        gap: 1rem;
+        p, h1 { font-size: 1.25rem }
+        label { font-size: 1rem }
       }
 
       a, button {
@@ -105,13 +110,6 @@ export const MenuStyles = styled.div`
           justify-content: center;
           text-align: center;
           width: 80%;
-        }
-        h1 {
-          font-size: 1.25rem;
-        }
-
-        label {
-          font-size: 1rem;
         }
       }
     }
