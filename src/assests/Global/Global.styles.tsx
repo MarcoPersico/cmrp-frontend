@@ -3,77 +3,8 @@ import { createGlobalStyle } from 'styled-components';
 // Types
 import { Theme } from '../Theme/Theme';
 
-// Fonts
-import SpartanWoff2 from '../Fonts/spartan/spartan-v1-latin-regular.woff2';
-import SpartanWoff from '../Fonts/spartan/spartan-v1-latin-regular.woff';
-import SpartanSemiboldWoff2 from '../Fonts/spartan/spartan-v1-latin-500.woff2';
-import SpartanSemiboldWoff from '../Fonts/spartan/spartan-v1-latin-500.woff';
-import SpartanBoldWoff2 from '../Fonts/spartan/spartan-v1-latin-700.woff2';
-import SpartanBoldWoff from '../Fonts/spartan/spartan-v1-latin-700.woff';
-
-import NunitoWoff2 from '../Fonts/nunito/nunito-v12-latin-regular.woff2';
-import NunitoWoff from '../Fonts/nunito/nunito-v12-latin-regular.woff';
-import NunitoWoff2Bold from '../Fonts/nunito/nunito-v12-latin-700.woff2';
-import NunitoWoffBold from '../Fonts/nunito/nunito-v12-latin-700.woff';
-
 /** Global styles */
 export const GlobalStyles = createGlobalStyle<{ theme: Theme }>`
-  @font-face {
-    font-family: Spartan;
-    src: url('${SpartanWoff2}') format('woff2');
-  }
-
-  @font-face {
-    font-family: Spartan;
-    src: url('${SpartanWoff}') format('woff');
-  }
-
-  @font-face {
-    font-family: Spartan;
-    src: url('${SpartanSemiboldWoff2}') format('woff2');
-    font-weight: 500;
-  }
-
-  @font-face {
-    font-family: Spartan;
-    src: url('${SpartanSemiboldWoff}') format('woff');
-    font-weight: 500;
-  }
-  
-  @font-face {
-    font-family: Spartan;
-    src: url('${SpartanBoldWoff2}') format('woff2');
-    font-weight: 700;
-  }
-
-  @font-face {
-    font-family: Spartan;
-    src: url('${SpartanBoldWoff}') format('woff');
-    font-weight: 700;
-  }
-
-  @font-face {
-    font-family: Nunito;
-    src: url('${NunitoWoff2Bold}') format('woff2');
-    font-weight: 700;
-  }
-
-  @font-face {
-    font-family: Nunito;
-    src: url('${NunitoWoffBold}') format('woff');
-    font-weight: 700;
-  }
-
-  @font-face {
-    font-family: Nunito;
-    src: url('${NunitoWoff2}') format('woff2');
-  }
-
-  @font-face {
-    font-family: Nunito;
-    src: url('${NunitoWoff}') format('woff');
-  }
-
   * {
     margin: 0;
     font-family: 'Spartan';

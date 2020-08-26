@@ -1,4 +1,4 @@
-import express, { Request, Response } from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 import bodyParser from 'body-parser';
 import path from 'path';
 import compression from 'compression';
@@ -19,13 +19,9 @@ app.use(
   }),
 );
 
-app.get([
-  '/static/*.woff',
-  '/static/*.woff2',
-  '/static/*.png',
-  '/favicon.ico',
-], (req: Request, res: Response) => {
+app.use('/:-Infinity', (req: Request, res: Response, next: NextFunction) => {
   res.header('Cache-Control', 'public, max-age=31536000, immutable');
+  next();
 });
 
 app.get('/favicon.ico', (req, res) => {
