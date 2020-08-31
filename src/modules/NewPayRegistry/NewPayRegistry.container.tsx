@@ -117,7 +117,7 @@ const NewPayRegistryContainer = () => {
       col.pop();
       return col;
     } catch (error) {
-      return null;
+      return [];
     }
   };
 
@@ -164,8 +164,11 @@ const NewPayRegistryContainer = () => {
               ))}
               columns={parseData() && getColumns(parseData())
                 ? (
-                  <Shared.TRHeader>{getColumns(parseData())
-                    ?.map((col, key) => <th key={key}>{col}</th>)}
+                  <Shared.TRHeader>
+                    {getColumns(parseData())
+                      ? getColumns(parseData())
+                        .map((col, key) => <th key={key}>{col}</th>)
+                      : <></>}
                   </Shared.TRHeader>
                 ) : null}
             />

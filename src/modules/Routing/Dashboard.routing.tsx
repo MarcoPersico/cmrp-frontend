@@ -8,6 +8,7 @@ import HeaderModule from '../Header';
 import AffiliateSearchModule from '../AffiliateSearch';
 import NewAffiliateModule from '../NewAffiliate';
 import PayRegistryRoutes from './PayRegistry.routing';
+import AffiliateCensusModule from '../AffiliateCensus';
 
 const Routing = () => {
   const userService = React.useContext(UserService);
@@ -35,7 +36,7 @@ const Routing = () => {
         </Route>
         <Route path="/dashboard/affiliate-census">
           {isAuth
-            ? <div>Census</div>
+            ? <AffiliateCensusModule />
             : <Redirect to="/" />}
         </Route>
         <Route path="/dashboard/pay-registry">

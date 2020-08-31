@@ -51,13 +51,13 @@ const Menu = ({
             <Icon.AddUser />
             <p>agregar afiliado</p>
           </Link>
-          {/* <Link
+          <Link
             onClick={onNavigateAction}
             to="/dashboard/affiliate-census"
           >
             <Icon.UserGroup />
             <p>padron de afiliados</p>
-          </Link> */}
+          </Link>
           <Link
             onClick={onNavigateAction}
             to="/dashboard/pay-registry/results"

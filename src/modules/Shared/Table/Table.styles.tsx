@@ -56,9 +56,10 @@ export const TableStyles = styled.div`
             width: 100%;
             position: absolute;
             left: 0;
-            bottom: 0;
+            bottom: -1px;
             z-index: 100000;
             background-color: ${(props) => props.theme.colors.primaryTextColor};
+            box-shadow: 0px 1px 1px 0px #00000078;
           }
 
           &:after {

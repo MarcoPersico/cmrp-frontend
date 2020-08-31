@@ -103,6 +103,20 @@ export type AffiliateFormData = {
   funeralFee: number,
 };
 
+export type AffiliateCensus = {
+  affiliate: number;
+  id: number;
+  active: boolean;
+  birthday: Date;
+  city: string;
+  department: string;
+  identity: number;
+  law: number;
+  license: number;
+  name: string;
+  registeredAt: Date;
+};
+
 export type MemberFormData = {
   birthday: string;
   dni: string;
@@ -139,6 +153,10 @@ type InitialState = {
   getStates: () => Promise<{value: number, label: string}[]>,
   getFees: () => Promise<{id: number, name: string, value: number}[]>,
   createAffiliate: (data: AffiliateFormData) => Promise<unknown>;
+  getAll: (
+    column: 'name' | 'affiliate' | 'registeredAt' | 'city' | 'department',
+    sort: 'ASC' | 'DESC' | null,
+  ) => Promise<AffiliateCensus[]>,
 };
 
 type Props = {
@@ -177,6 +195,10 @@ const initialState: InitialState = {
   getStates: () => new Promise((resolve) => resolve()),
   getFees: () => new Promise((resolve) => resolve()),
   createAffiliate: () => new Promise((resolve) => resolve()),
+  getAll: (
+    column: 'name' | 'affiliate' | 'registeredAt' | 'city' | 'department',
+    sort: 'ASC' | 'DESC' | null,
+  ) => new Promise((resolve) => resolve()),
 };
 
 export const AffiliateService = React.createContext(initialState);
@@ -394,6 +416,19 @@ const AffiliateServiceProvider = ({ children }: Props) => {
     return history.push(`/dashboard/affiliate-search/selected/${response.data.code}`);
   }
 
+  async function getAll(
+    column: 'name' | 'affiliate' | 'registeredAt' | 'city' | 'department',
+    sort: 'ASC' | 'DESC' | null,
+  ): Promise<AffiliateCensus[]> {
+    const affiliateConfig: Request = {
+      requestType: 'get',
+      url: `/affiliate/get-all?column=${column}&sort=${sort}`,
+    };
+
+    const response = await httpService.ApiService(affiliateConfig);
+    return response.data;
+  }
+
   return (
     <AffiliateService.Provider
       value={{
@@ -410,6 +445,7 @@ const AffiliateServiceProvider = ({ children }: Props) => {
         getStates,
         getFees,
         createAffiliate,
+        getAll,
       }}
     >
       {children}

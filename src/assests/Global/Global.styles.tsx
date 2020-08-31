@@ -278,4 +278,18 @@ export const GlobalStyles = createGlobalStyle<{ theme: Theme }>`
   input[type="month"]::-webkit-calendar-picker-indicator {
     filter: invert(${(props) => props.theme.colors.invert});
   }
+
+  .-active {
+    font-weight: 700;
+    color: green;
+    display: flex;
+    align-items: center;
+  }
+
+  .-inactive {
+    font-weight: 700;
+    color: red;
+    display: flex;
+    align-items: center;
+  }
 `;

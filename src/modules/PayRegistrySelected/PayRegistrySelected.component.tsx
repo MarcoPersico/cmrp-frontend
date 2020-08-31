@@ -41,27 +41,32 @@ const PayRegistrySelected = ({
               <Shared.TRHeader>
                 <th>Codigo</th>
                 <Shared.Sortable
+                  key={1}
                   value="Beneficio"
                   column="benefit"
                   onChange={(sort, column) => onSorting(column, sort)}
                 />
                 <Shared.Sortable
+                  key={2}
                   value="Numero"
                   column="number"
                   onChange={(sort, column) => onSorting(column, sort)}
                 />
                 <Shared.Sortable
+                  key={3}
                   value="Nombre"
                   column="name"
                   onChange={(sort, column) => onSorting(column, sort)}
                 />
                 <Shared.Sortable
+                  key={4}
                   value="Documento"
                   column="identity"
                   onChange={(sort, column) => onSorting(column, sort)}
                 />
                 <th>CUIL</th>
                 <Shared.Sortable
+                  key={5}
                   value="Importe"
                   column="import"
                   onChange={(sort, column) => onSorting(column, sort)}
