@@ -10,6 +10,7 @@ import NewMemberForm from './NewMemberForm';
 import InputFile from './InputFile';
 import Table, { Sortable, TRHeader } from './Table';
 import ActionGroup from './ActionGroup';
+import Filters from './Filters';
 
 export const Shared = {
   Spinner,
@@ -26,4 +27,5 @@ export const Shared = {
   Sortable,
   ActionGroup,
   TRHeader,
+  Filters,
 };

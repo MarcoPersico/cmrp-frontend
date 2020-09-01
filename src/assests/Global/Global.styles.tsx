@@ -76,6 +76,11 @@ export const GlobalStyles = createGlobalStyle<{ theme: Theme }>`
         background: white;
     }
 
+    &_primery_simple {
+      border: none;
+      background: none;
+    }
+
     &_animations {
       &_fadeIn {
         animation-name: fadeIn;

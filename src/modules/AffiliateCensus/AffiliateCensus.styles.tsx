@@ -23,5 +23,27 @@ export const AffiliateCensusStyles = styled.div`
     &_body {
       padding: 0 1rem;
     }
+
+    &_actionGroup {
+      padding: 1rem 0px;
+
+      &_caption {
+        padding: 1rem;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+      }
+    }
+
+    &_filterContainer {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      height: 100%;
+
+      &_title {
+        font-weight: 500;
+      }
+    }
   }
 `;

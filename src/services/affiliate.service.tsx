@@ -104,17 +104,21 @@ export type AffiliateFormData = {
 };
 
 export type AffiliateCensus = {
-  affiliate: number;
   id: number;
+  affiliate: number;
   active: boolean;
   birthday: Date;
+  address: string;
+  district: string;
   city: string;
   department: string;
   identity: number;
   law: number;
   license: number;
   name: string;
-  registeredAt: Date;
+  contact: {
+    number: number;
+  };
 };
 
 export type MemberFormData = {
@@ -154,8 +158,13 @@ type InitialState = {
   getFees: () => Promise<{id: number, name: string, value: number}[]>,
   createAffiliate: (data: AffiliateFormData) => Promise<unknown>;
   getAll: (
-    column: 'name' | 'affiliate' | 'registeredAt' | 'city' | 'department',
-    sort: 'ASC' | 'DESC' | null,
+    column: string | null,
+    sort: string | null,
+  ) => Promise<AffiliateCensus[]>,
+  getAllWithFilters: (
+    column: string | null,
+    sort: string | null,
+    filters: { law: number, departments: string[] },
   ) => Promise<AffiliateCensus[]>,
 };
 
@@ -196,8 +205,13 @@ const initialState: InitialState = {
   getFees: () => new Promise((resolve) => resolve()),
   createAffiliate: () => new Promise((resolve) => resolve()),
   getAll: (
-    column: 'name' | 'affiliate' | 'registeredAt' | 'city' | 'department',
-    sort: 'ASC' | 'DESC' | null,
+    column: string | null,
+    sort: string | null,
+  ) => new Promise((resolve) => resolve()),
+  getAllWithFilters: (
+    column: string | null,
+    sort: string | null,
+    filters: { law: number, departments: string[] },
   ) => new Promise((resolve) => resolve()),
 };
 
@@ -417,12 +431,34 @@ const AffiliateServiceProvider = ({ children }: Props) => {
   }
 
   async function getAll(
-    column: 'name' | 'affiliate' | 'registeredAt' | 'city' | 'department',
-    sort: 'ASC' | 'DESC' | null,
+    column: string | null,
+    sort: string | null,
+    filters?: { law: number, departments: string[] },
   ): Promise<AffiliateCensus[]> {
     const affiliateConfig: Request = {
       requestType: 'get',
       url: `/affiliate/get-all?column=${column}&sort=${sort}`,
+    };
+
+    const response = await httpService.ApiService(affiliateConfig);
+    return response.data;
+  }
+
+  async function getAllWithFilters(
+    column: string | null,
+    sort: string | null,
+    filters?: { law: number, departments: string[] },
+  ): Promise<AffiliateCensus[]> {
+    const affiliateConfig: Request = {
+      requestType: 'post',
+      url: '/affiliate/get-all-with-filters',
+      configData: {
+        data: {
+          filters,
+          column,
+          sort,
+        },
+      },
     };
 
     const response = await httpService.ApiService(affiliateConfig);
@@ -446,6 +482,7 @@ const AffiliateServiceProvider = ({ children }: Props) => {
         getFees,
         createAffiliate,
         getAll,
+        getAllWithFilters,
       }}
     >
       {children}

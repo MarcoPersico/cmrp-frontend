@@ -3,14 +3,23 @@ import { ActionGroupStyles } from './ActionGroup.styles';
 import { Icon } from '../../../assests/Icons/Icons';
 
 type Props = {
+  className?: string;
   children?: React.ReactNode;
+  closeCaption?: React.ReactNode;
 };
 
-const ActionGroup = ({ children }: Props) => {
+const ActionGroup = ({ children, className, closeCaption }: Props) => {
   const [isOpen, setIsOpen] = React.useState<boolean>(true);
 
   return (
-    <ActionGroupStyles isOpen={isOpen}>
+    <ActionGroupStyles
+      className={className || ''}
+      isOpen={isOpen}
+      onClick={() => (!isOpen ? setIsOpen(true) : null)}
+    >
+      {!isOpen
+        ? closeCaption
+        : null}
       <div className="CMRP_ActionGroup_toggleContainer">
         <button
           onClick={() => setIsOpen(!isOpen)}
