@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useReactToPrint } from 'react-to-print';
 import { AffiliateCensusStyles } from './AffiliateCensus.styles';
 import { Shared } from '../Shared';
 import { AffiliateCensus as AffiliateCensusType } from '../../services/affiliate.service';
@@ -19,104 +20,119 @@ type Props = {
 
 const AffiliateCensus = ({
   affiliates, onSort, filters, onFilterApplied, onFilterCleared,
-}: Props) => (
-  <AffiliateCensusStyles>
-    <div className="CMRP_AffiliateCensus_header">
-      <h2 className="CMRP_headerTitle">Padron de Afiliados</h2>
-    </div>
-    <div className="CMRP_AffiliateCensus_body">
-      <Shared.Table
-        columns={
-          <>
-            <Shared.TRHeader startingSort={1}>
-              <Shared.Sortable
-                key={1}
-                value="Nombre y Apellido"
-                onChange={(value, column) => (
-                  column === 'name'
-                    && (value === 'ASC'
-                      || value === 'DESC'
-                      || value === '')
-                    ? onSort(column, value || null)
-                    : null)}
-                column="name"
-              />
-              <th>Ley/Carnet</th>
-              <th>Documento</th>
-              <th>Direccion</th>
-              <th>Barrio</th>
-              <Shared.Sortable
-                key={2}
-                value="Localidad"
-                onChange={(value, column) => (
-                  column === 'city'
-                    && (value === 'ASC'
-                      || value === 'DESC'
-                      || value === '')
-                    ? onSort(column, value || null)
-                    : null)}
-                column="city"
-              />
-              <Shared.Sortable
-                key={3}
-                value="Departamento"
-                onChange={(value, column) => (
-                  column === 'department'
-                    && (value === 'ASC'
-                      || value === 'DESC'
-                      || value === '')
-                    ? onSort(column, value || null)
-                    : null)}
-                column="department"
-              />
-              <th>Telefono</th>
-              <th>Estado</th>
-            </Shared.TRHeader>
-          </>
-        }
-        data={affiliates.map((affiliate) => (
-          <tr className="CMRP_animations_fadeIn" key={affiliate.id}>
-            <td>
-              <Link to={`/dashboard/affiliate-search/selected/${affiliate.affiliate}`}>
-                {affiliate.name}
-              </Link>
-            </td>
-            <td>{affiliate.law}/{affiliate.license}</td>
-            <td>{affiliate.identity}</td>
-            <td>{affiliate.address}</td>
-            <td>{affiliate.district}</td>
-            <td>{affiliate.city}</td>
-            <td>{affiliate.department}</td>
-            <td>{affiliate.contact?.number}</td>
-            <td>
-              <span className={affiliate.active ? '-active' : '-inactive'}>
-                {affiliate.active ? 'ALTA' : 'BAJA'}
-              </span>
-            </td>
-          </tr>
-        ))}
-      />
-    </div>
-    <Shared.ActionGroup
-      className="CMRP_AffiliateCensus_actionGroup"
-      closeCaption={
-        <div className="CMRP_AffiliateCensus_actionGroup_caption">
-          <Icon.Options />
-          <p>Filtros</p>
-        </div>
-      }
-    >
-      <div className="CMRP_AffiliateCensus_filterContainer">
-        <div className="CMRP_AffiliateCensus_filterContainer_filters">
-          <Shared.Filters
-            filters={filters}
-            onAction={onFilterApplied}
-            onActionClear={onFilterCleared}
-          />
-        </div>
+}: Props) => {
+  const tableRef = React.useRef<HTMLDivElement>(null);
+  const handlePrint = useReactToPrint({
+    content: () => tableRef.current,
+  });
+
+  return (
+    <AffiliateCensusStyles>
+      <div className="CMRP_AffiliateCensus_header">
+        <h2 className="CMRP_headerTitle">Padron de Afiliados</h2>
       </div>
-    </Shared.ActionGroup>
-  </AffiliateCensusStyles>
-);
+      <div ref={tableRef} className="CMRP_AffiliateCensus_body">
+        <Shared.Table
+          columns={
+            <>
+              <Shared.TRHeader startingSort={1}>
+                <Shared.Sortable
+                  key={1}
+                  value="Nombre y Apellido"
+                  onChange={(value, column) => (
+                    column === 'name'
+                      && (value === 'ASC'
+                        || value === 'DESC'
+                        || value === '')
+                      ? onSort(column, value || null)
+                      : null)}
+                  column="name"
+                />
+                <th>Ley/Carnet</th>
+                <th>Documento</th>
+                <th>Direccion</th>
+                <th>Barrio</th>
+                <Shared.Sortable
+                  key={2}
+                  value="Localidad"
+                  onChange={(value, column) => (
+                    column === 'city'
+                      && (value === 'ASC'
+                        || value === 'DESC'
+                        || value === '')
+                      ? onSort(column, value || null)
+                      : null)}
+                  column="city"
+                />
+                <Shared.Sortable
+                  key={3}
+                  value="Departamento"
+                  onChange={(value, column) => (
+                    column === 'department'
+                      && (value === 'ASC'
+                        || value === 'DESC'
+                        || value === '')
+                      ? onSort(column, value || null)
+                      : null)}
+                  column="department"
+                />
+                <th>Telefono</th>
+                <th>Estado</th>
+              </Shared.TRHeader>
+            </>
+          }
+          data={affiliates.map((affiliate) => (
+            <tr className="CMRP_animations_fadeIn" key={affiliate.id}>
+              <td>
+                <Link to={`/dashboard/affiliate-search/selected/${affiliate.affiliate}`}>
+                  {affiliate.name}
+                </Link>
+              </td>
+              <td>{affiliate.law}/{affiliate.license}</td>
+              <td>{affiliate.identity}</td>
+              <td>{affiliate.address}</td>
+              <td>{affiliate.district}</td>
+              <td>{affiliate.city}</td>
+              <td>{affiliate.department}</td>
+              <td>{affiliate.contact?.number}</td>
+              <td>
+                <span className={affiliate.active ? '-active' : '-inactive'}>
+                  {affiliate.active ? 'ALTA' : 'BAJA'}
+                </span>
+              </td>
+            </tr>
+          ))}
+        />
+      </div>
+      <Shared.ActionGroup
+        className="CMRP_AffiliateCensus_actionGroup"
+        closeCaption={
+          <div className="CMRP_AffiliateCensus_actionGroup_caption">
+            <Icon.Options />
+            <p>Filtros</p>
+          </div>
+        }
+      >
+        <div className="CMRP_AffiliateCensus_actionContainer">
+          <div className="CMRP_AffiliateCensus_filterContainer">
+            <div className="CMRP_AffiliateCensus_filterContainer_filters">
+              <Shared.Filters
+                filters={filters}
+                onAction={onFilterApplied}
+                onActionClear={onFilterCleared}
+              />
+            </div>
+          </div>
+          <div>
+            <button onClick={handlePrint} type="button" className="CMRP_simple_button">
+              <Icon.File />
+              Imprimir reporte
+            </button>
+          </div>
+        </div>
+      </Shared.ActionGroup>
+    </AffiliateCensusStyles>
+  );
+};
 
 export default AffiliateCensus;

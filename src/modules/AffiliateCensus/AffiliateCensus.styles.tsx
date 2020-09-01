@@ -24,6 +24,13 @@ export const AffiliateCensusStyles = styled.div`
       padding: 0 1rem;
     }
 
+    &_actionContainer {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      align-items: center;
+    }
+
     &_actionGroup {
       padding: 1rem 0px;
 
