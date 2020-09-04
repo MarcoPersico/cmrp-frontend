@@ -105,6 +105,8 @@ const AffiliateCensusModule = () => {
   };
 
   const clearFilters = () => {
+    setSelectedLaw(0);
+    setSelectedDepartments([]);
     affiliateService.getAll(columnSort, currentSort)
       .then((data) => setAffiliates(data));
   };

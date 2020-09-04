@@ -27,6 +27,7 @@ const PayRegistrySelected = ({
   const handlePrint = useReactToPrint({
     content: () => tableRef.current,
   });
+  const numberWithCommas = (x: number) => x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 
   return (
     <PayRegistrySelectedStyles>
@@ -71,6 +72,7 @@ const PayRegistrySelected = ({
                   column="import"
                   onChange={(sort, column) => onSorting(column, sort)}
                 />
+                {registries[0]?.code === 1040 ? <th>Sueldo Básico</th> : <></>}
               </Shared.TRHeader>
             }
             data={registries.map((col: PayRegistryAttributes, key: number) => (
@@ -94,7 +96,10 @@ const PayRegistrySelected = ({
                 </td>
                 <td>{col.identity}</td>
                 <td>{col.cuil}</td>
-                <td>{col.import}</td>
+                <td>${col.import}</td>
+                {registries[0]?.code === 1040
+                  ? <td>${numberWithCommas((col.import * 100) / 2)}</td>
+                  : <></>}
               </tr>
             ))}
           />
