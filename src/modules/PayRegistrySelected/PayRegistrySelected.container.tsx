@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
-import { useParams, Redirect } from 'react-router-dom';
+import { useParams, Redirect, useLocation } from 'react-router-dom';
 import PayRegistrySelected from './PayRegistrySelected.component';
 import { PayRegisterService } from '../../services/payRegister.service';
 import { PayRegistryAttributes } from '../../../typings/api';
@@ -9,6 +9,8 @@ type RegistrySelectedParam = { id: string };
 
 const PayRegistrySelectedContainer = () => {
   const params = useParams<RegistrySelectedParam>();
+  const location = useLocation();
+  const selectedQueryString = new URLSearchParams(location.search);
   const payRegistryService = React.useContext(PayRegisterService);
   const [exists, setExists] = React.useState<boolean>(true);
   const [laws, setLaws] = React.useState<string[]>([]);
@@ -28,6 +30,10 @@ const PayRegistrySelectedContainer = () => {
           setFilterPayRegistry(data);
           setLaws(getLaws(data));
         } else setExists(false);
+      })
+      .finally(() => {
+        document.getElementById(selectedQueryString.get('selected') || '')
+          ?.scrollIntoView({ behavior: 'smooth', block: 'center' });
       });
   }, []);
 
@@ -68,6 +74,7 @@ const PayRegistrySelectedContainer = () => {
           isFilterApplied={isFilterApplied}
           onFilterApplied={filterByLaw}
           selectedLaw={selectedLaw}
+          selected={selectedQueryString.get('selected') || ''}
           onSorting={(column, sort) => (filterPayRegistry.length > 1
             ? (payRegistryService
               .getCurrentSorted(parseInt(params.id, 10), column, sort)

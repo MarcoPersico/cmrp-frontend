@@ -52,4 +52,8 @@ export const PayRegistrySelectedStyles = styled.div`
       margin-bottom: 100px;
     }
   }
+
+  .--highlight {
+    background-color: #c3d8ff;
+  }
 `;

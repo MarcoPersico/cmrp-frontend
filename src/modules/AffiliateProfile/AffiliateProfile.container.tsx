@@ -166,7 +166,11 @@ const AffiliateProfileContainer = () => {
           }
           payRegistries={affiliateService.affiliate.payRegistries.map(
             (payRegistry) => (
-              <PayRegistryCard payRegistry={payRegistry} key={payRegistry.id} />
+              <PayRegistryCard
+                payRegistry={payRegistry}
+                key={payRegistry.id}
+                identity={affiliateService.affiliate.identity}
+              />
             ),
           )}
           members={affiliateService.affiliate.members.map((member) => (

@@ -13,6 +13,7 @@ type Props = {
   onFilterApplied: (value: string) => void;
   onSorting: (column: string, sort: string) => void;
   selectedLaw: number;
+  selected: string | null;
 };
 
 const PayRegistrySelected = ({
@@ -22,6 +23,7 @@ const PayRegistrySelected = ({
   onFilterApplied,
   onSorting,
   selectedLaw,
+  selected,
 }: Props) => {
   const tableRef = React.useRef<HTMLDivElement>(null);
   const handlePrint = useReactToPrint({
@@ -37,7 +39,7 @@ const PayRegistrySelected = ({
       <div>
         <div ref={tableRef}>
           <Shared.Table
-            className="CMRP_PayRegistry_tableContainer"
+            className="CMRP_PayRegistry_tableContainer CMRP_animations_fadeIn"
             columns={
               <Shared.TRHeader>
                 <th>Codigo</th>
@@ -75,33 +77,42 @@ const PayRegistrySelected = ({
                 {registries[0]?.code === 1040 ? <th>Sueldo Básico</th> : <></>}
               </Shared.TRHeader>
             }
-            data={registries.map((col: PayRegistryAttributes, key: number) => (
-              <tr className="CMRP_animations_fadeIn" key={col.id}>
-                <td>{col.code}</td>
-                <td>
-                  {col.benefit.split('-')[0]}-
-                  <span
-                    className={isFilterApplied ? '--highlighted' : ''}
-                  >
-                    {col.benefit.split('-')[1]}
-                  </span>-
-                  {col.benefit.split('-')[2]}-
-                  {col.benefit.split('-')[3]}
-                </td>
-                <td>{col.number}</td>
-                <td>
-                  <Link to={`/dashboard/affiliate-search/selected/${col.identity}`}>
-                    {col.name}
-                  </Link>
-                </td>
-                <td>{col.identity}</td>
-                <td>{col.cuil}</td>
-                <td>${col.import}</td>
-                {registries[0]?.code === 1040
-                  ? <td>${numberWithCommas((col.import * 100) / 2)}</td>
-                  : <></>}
-              </tr>
-            ))}
+            data={registries.map((col: PayRegistryAttributes, key: number) => {
+              if (col.identity.toString() === selected) {
+                // setSelectedRow(col.identity.toString());
+              }
+              return (
+                <tr
+                  id={col.identity.toString()}
+                  className={`${selected === col.identity.toString() ? 'CMRP_animations_blink --highlight' : ''}`}
+                  key={col.id}
+                >
+                  <td>{col.code}</td>
+                  <td>
+                    {col.benefit.split('-')[0]}-
+                    <span
+                      className={isFilterApplied ? '--highlighted' : ''}
+                    >
+                      {col.benefit.split('-')[1]}
+                    </span>-
+                    {col.benefit.split('-')[2]}-
+                    {col.benefit.split('-')[3]}
+                  </td>
+                  <td>{col.number}</td>
+                  <td>
+                    <Link to={`/dashboard/affiliate-search/selected/${col.identity}`}>
+                      {col.name}
+                    </Link>
+                  </td>
+                  <td>{col.identity}</td>
+                  <td>{col.cuil}</td>
+                  <td>${col.import}</td>
+                  {registries[0]?.code === 1040
+                    ? <td>${numberWithCommas((col.import * 100) / 2)}</td>
+                    : <></>}
+                </tr>
+              );
+            })}
           />
         </div>
       </div>

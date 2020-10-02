@@ -8,11 +8,12 @@ import ProfileField from '../ProfileField';
 
 type Props = {
   payRegistry: PayRegistry,
+  identity: number,
 };
 
-const PayRegistryCard = ({ payRegistry }: Props) => (
+const PayRegistryCard = ({ payRegistry, identity }: Props) => (
   <PayRegistryCardStyles>
-    <Link to={`/dashboard/pay-registry/selected/${payRegistry.periodCode}`}>
+    <Link to={`/dashboard/pay-registry/selected/${payRegistry.periodCode}?selected=${identity}`}>
       <Shared.Card className="CMRP_PayRegistry_cardContainer">
         <ProfileField
           label="Periodo"
